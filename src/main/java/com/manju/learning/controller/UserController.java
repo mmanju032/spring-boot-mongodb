@@ -25,12 +25,17 @@ public class UserController {
 		return "Hello Manju";
 	}
 	
-	@GetMapping("/listAllUsers")
+	@GetMapping("/user/listAllUsers")
 	public List<UserDetails> listAllUsers() {
 		return userRepository.findAll();
 	}
+		
+	@GetMapping("/user/findUser/{userId}")
+	public Optional<UserDetails> findUser(@PathVariable Integer userId) {
+		return userRepository.findById(userId);
+	}
 	
-	@PostMapping("/saveUsers")
+	@PostMapping("/admin/saveUsers")
 	public List<UserDetails> saveUsers() {
 		
 		List<UserDetails> users = new ArrayList<>();
@@ -44,13 +49,7 @@ public class UserController {
 		return userRepository.saveAll(users);
 	}
 	
-	
-	@GetMapping("/findUser/{userId}")
-	public Optional<UserDetails> findUser(@PathVariable Integer userId) {
-		return userRepository.findById(userId);
-	}
-	
-	@PutMapping("/deleteUser/{userId}")
+	@PutMapping("/admin/deleteUser/{userId}")
 	public void deleteUser(@PathVariable Integer userId) {
 		 userRepository.deleteById(userId);
 	}
